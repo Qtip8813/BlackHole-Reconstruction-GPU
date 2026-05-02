@@ -1,0 +1,106 @@
+services:
+  qrft-toolkit:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+      args:
+        ENABLE_GPU: ${ENABLE_GPU:-false}
+        CUDA_VERSION: ${CUDA_VERSION:-12.x}
+    container_name: qrft-blackhole-toolkit
+    image: qrft-blackhole-toolkit:latest
+    runtime: ${DOCKER_RUNTIME:-runc}
+    
+    # Development hot-reload
+    volumes:
+      - ./qrft-blackhole-toolkit:/app
+      - output_data:/app/output
+      - eht_data:/app/eht_data
+    
+    # Develop mode for automatic reload on file changes
+    develop:
+      watch:
+        - action: sync
+          path: ./qrft-blackhole-toolkit
+          target: /app
+          ignore:
+            - __pycache__
+            - .pytest_cache
+            - "*.pyc"
+        - action: rebuild
+          path: ./qrft-blackhole-toolkit/requirements.txt
+          target: /app
+    
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: "${COMPOSE_CPU_LIMIT:-4}"
+          memory: ${COMPOSE_MEM_LIMIT:-8gb}
+        reservations:
+          cpus: "${COMPOSE_CPU_RESERVATION:-2}"
+          memory: ${COMPOSE_MEM_RESERVATION:-4gb}
+    
+    # Environment
+    environment:
+      PYTHONUNBUFFERED: ${PYTHONUNBUFFERED:-1}
+      PYTHONDONTWRITEBYTECODE: ${PYTHONDONTWRITEBYTECODE:-1}
+      PYTHONPATH: ${PYTHONPATH:-/app:/app/core:/app/gpu:/app/entropy:/app/pipeline:/app/viz}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      OPENBLAS_NUM_THREADS: ${OPENBLAS_NUM_THREADS:-4}
+      OMP_NUM_THREADS: ${OMP_NUM_THREADS:-4}
+      NVIDIA_VISIBLE_DEVICES: ${NVIDIA_VISIBLE_DEVICES:-all}
+    
+    # Keep container running for interactive work
+    stdin_open: true
+    tty: true
+    
+    # Override entrypoint to bash for interactive terminal
+    entrypoint: /bin/bash
+    
+    # Network
+    networks:
+      - qrft-net
+
+  # Optional: Jupyter for interactive analysis
+  jupyter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    container_name: qrft-jupyter
+    image: qrft-blackhole-toolkit:latest
+    
+    volumes:
+      - ./qrft-blackhole-toolkit:/app
+      - output_data:/app/output
+      - eht_data:/app/eht_data
+      - notebooks:/app/notebooks
+    
+    ports:
+      - "${JUPYTER_PORT:-8888}:8888"
+    
+    environment:
+      PYTHONUNBUFFERED: ${PYTHONUNBUFFERED:-1}
+      JUPYTER_ENABLE_LAB: ${JUPYTER_ENABLE_LAB:-true}
+      JUPYTER_TOKEN: ${JUPYTER_TOKEN:-qrft_token_2025}
+    
+    entrypoint: ["bash", "-c", "pip install jupyter jupyterlab && jupyter lab --ip=0.0.0.0 --no-browser --allow-root --NotebookApp.token=${JUPYTER_TOKEN}"]
+    
+    networks:
+      - qrft-net
+    
+    profiles:
+      - jupyter
+
+volumes:
+  output_data:
+    driver: local
+  eht_data:
+    driver: local
+  notebooks:
+    driver: local
+
+networks:
+  qrft-net:
+    driver: bridge

@@ -1,0 +1,15 @@
+# QRFT Black Hole Toolkit - Core Dependencies
+# Install with: pip install -r requirements.txt
+
+# Core (required)
+numpy>=1.24.0
+scipy>=1.10.0
+matplotlib>=3.7.0
+Pillow>=9.0.0
+
+# Optional: Real EHT data loading
+# ehtim>=1.2.0
+# astropy>=5.0
+
+# Optional: GPU acceleration (see setup.py for auto-detection)
+# cupy-cuda12x>=12.0.0

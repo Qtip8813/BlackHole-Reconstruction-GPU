@@ -1,0 +1,51 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Git
+.git/
+.gitignore
+
+# Test and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Project-specific
+eht_data/*.tgz
+eht_data/*.tar.gz
+*.uvfits
+.vscode/
+
+# Large generated files
+output/*.png
+output/*.mp4
+*.log
