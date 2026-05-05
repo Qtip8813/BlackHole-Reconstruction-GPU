@@ -1,0 +1,7 @@
+Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: astropy in C:\Users\rodne\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages (7.2.0)
+Requirement already satisfied: numpy>=1.24 in C:\Users\rodne\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages (from astropy) (2.3.5)
+Requirement already satisfied: pyerfa>=2.0.1.1 in C:\Users\rodne\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages (from astropy) (2.0.1.5)
+Requirement already satisfied: astropy-iers-data>=0.2025.10.27.0.39.10 in C:\Users\rodne\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages (from astropy) (0.2026.3.9.0.47.45)
+Requirement already satisfied: PyYAML>=6.0.0 in C:\Users\rodne\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages (from astropy) (6.0.3)
+Requirement already satisfied: packaging>=22.0.0 in C:\Users\rodne\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages (from astropy) (25.0)
