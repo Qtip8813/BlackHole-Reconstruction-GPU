@@ -253,7 +253,8 @@ Contributions welcome! Areas for enhancement:
 ## 👨‍🔬 Author
 
 **Rodney Lee Arnold Jr.** (∞ 0425)  
-Email: rodney@0425.io
+Email: Architect@rodsai.com
+Email: Rods.ai.consulting@gmail.com 
 
 ## 🙏 Acknowledgments
 
